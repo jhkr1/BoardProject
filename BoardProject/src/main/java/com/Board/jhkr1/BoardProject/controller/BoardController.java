@@ -4,10 +4,13 @@ import com.Board.jhkr1.BoardProject.dto.BoardDTO;
 import com.Board.jhkr1.BoardProject.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,5 +27,12 @@ public class BoardController {
         System.out.println("boardDTO = " + boardDTO);
         boardService.save(boardDTO);
         return "index";
+    }
+    @GetMapping("/")
+    public String findAll(Model model){
+        // DB에서 전체 게시글 데이터를 가져와서 list.html에 저장한다.
+        List<BoardDTO> boardDTOList = boardService.findAll();
+        model.addAttribute("boardList", boardDTOList);
+        return "list";
     }
 }
