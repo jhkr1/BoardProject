@@ -22,3 +22,5 @@
     + 수정 처리
 5. 글 삭제(/board/delelte/{id})
 6. 페이징 처리(/board/paging)
+    + /board/paging?page=2
+    + /board/paging/2
