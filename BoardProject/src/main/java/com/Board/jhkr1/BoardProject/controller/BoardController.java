@@ -14,19 +14,21 @@ import java.util.List;
 @RequestMapping("/board")
 public class BoardController {
     private final BoardService boardService;
+
     @GetMapping("/save")
-    public String saveForm(){
+    public String saveForm() {
         return "save";
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute BoardDTO boardDTO){
+    public String save(@ModelAttribute BoardDTO boardDTO) {
         System.out.println("boardDTO = " + boardDTO);
         boardService.save(boardDTO);
         return "index";
     }
+
     @GetMapping("/")
-    public String findAll(Model model){
+    public String findAll(Model model) {
         // DB에서 전체 게시글 데이터를 가져와서 list.html에 저장한다.
         List<BoardDTO> boardDTOList = boardService.findAll();
         model.addAttribute("boardList", boardDTOList);
@@ -39,6 +41,20 @@ public class BoardController {
         boardService.updateHits(id);
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);
+        return "detail";
+    }
+
+    @GetMapping("/update/{id}")
+    public String updateForm(@PathVariable Long id, Model model) {
+        BoardDTO boardDTO = boardService.findById(id);
+        model.addAttribute("boardUpdate", boardDTO);
+        return "update";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute BoardDTO boardDTO, Model model) {
+        BoardDTO board = boardService.update(boardDTO);
+        model.addAttribute("board", board);
         return "detail";
     }
 }
