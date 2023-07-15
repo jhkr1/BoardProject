@@ -10,6 +10,7 @@
 5. Thymeleaf
 <br>
 <br>
+
 ## 게시판 주요기능
 
 1. 글 쓰기(/board/save)
